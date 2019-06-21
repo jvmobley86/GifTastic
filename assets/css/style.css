@@ -1,3 +1,10 @@
-#buttons-here {
-    display: inline-block;
+
+
+.btn {
+    display: inline;
+    margin-left: 10px;
+}
+
+h1{
+    text-align: center;
 }
