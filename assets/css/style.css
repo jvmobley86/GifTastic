@@ -1,4 +1,7 @@
-
+#buttons_here {
+    position: absolute;
+    right: 300px;
+}
 
 .btn {
     display: inline;
@@ -7,4 +10,12 @@
 
 h1{
     text-align: center;
+    
 }
+
+#submit, #userInput, h2{
+    position: absolute;
+    right: 300px;
+    top:200px;
+}
+

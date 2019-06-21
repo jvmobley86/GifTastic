@@ -28,7 +28,7 @@ $(document).ready(function () {
 
             $('#buttons_here').append(buttons);
 
-            
+
 
         }
     };
@@ -46,8 +46,7 @@ $(document).ready(function () {
 
     $('#buttons_here').on('click', '.btn', function () {
         var topics = $(this).attr("data-name");
-        console.log(topics)
-        console.log(queryURL)
+    
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             topics + "&api_key=SpKxqIkJbChrNLcX83G8ZPC0wBDbrxZq";
@@ -58,9 +57,9 @@ $(document).ready(function () {
 
         })
             .then(function (response) {
-                
+
                 var results = response.data;
-                
+
                 for (var i = 0; i < results.length; i++) {
                     var imgDiv = $("<div>");
 
@@ -69,11 +68,30 @@ $(document).ready(function () {
                     var adventureImg = $("<img>");
 
                     adventureImg.attr("src", results[i].images.fixed_height.url);
+                    adventureImg.attr("data-state");
+                    console.log(adventureImg);
 
                     imgDiv.append(pTag);
                     imgDiv.append(adventureImg);
 
                     $("#gifs_here").prepend(imgDiv);
-                }
+             
+               }
+               var adventureImg = $("<img>");
+               $('#adventureImg').on("click", function () {
+
+                var state = $(this).attr("data-state");
+                if (state == "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                };
             })
-    })})
+            })
+
+    },
+        
+    )
+})
