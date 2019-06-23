@@ -1,4 +1,3 @@
-$(document).ready(function () {
 
 
     var topics = [
@@ -28,8 +27,6 @@ $(document).ready(function () {
 
             $('#buttons_here').append(buttons);
 
-
-
         }
     };
 
@@ -44,16 +41,17 @@ $(document).ready(function () {
 
 
 
-    $('#buttons_here').on('click', '.btn', function () {
+    $(document).on('click', '.btn', function () {
         var topics = $(this).attr("data-name");
     
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-            topics + "&api_key=SpKxqIkJbChrNLcX83G8ZPC0wBDbrxZq";
+            topics + "&api_key=SpKxqIkJbChrNLcX83G8ZPC0wBDbrxZq&limit=10";
 
         $.ajax({
             url: queryURL,
-            method: "GET"
+            method: "GET",
+            type: "json"
 
         })
             .then(function (response) {
@@ -62,13 +60,17 @@ $(document).ready(function () {
 
                 for (var i = 0; i < results.length; i++) {
                     var imgDiv = $("<div>");
+                    imgDiv.addClass('container');
 
                     var pTag = $("<p>").text("Rating: " + results[i].rating);
 
                     var adventureImg = $("<img>");
+                    adventureImg.addClass('adventureImg');
 
                     adventureImg.attr("src", results[i].images.fixed_height.url);
-                    adventureImg.attr("data-state");
+                    adventureImg.attr('data-still', results[i].images.fixed_height_still.url )
+                    adventureImg.attr('data-animate', results[i].images.fixed_height.url )
+                    adventureImg.attr("data-state", "animate");
                     console.log(adventureImg);
 
                     imgDiv.append(pTag);
@@ -77,21 +79,22 @@ $(document).ready(function () {
                     $("#gifs_here").prepend(imgDiv);
              
                }
-               var adventureImg = $("<img>");
-               $('#adventureImg').on("click", function () {
-
-                var state = $(this).attr("data-state");
-                if (state == "still") {
-                    $(this).attr("src", $(this).attr("data-animate"));
-                    $(this).attr("data-state", "animate");
-                } else {
-                    $(this).attr("src", $(this).attr("data-still"));
-                    $(this).attr("data-state", "still");
-                };
-            })
+               
             })
 
     },
         
     )
+
+
+$(document).on("click", ".adventureImg", function () {
+
+    var state = $(this).attr("data-state");
+    if (state == "animate") {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    } else {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    };
 })
